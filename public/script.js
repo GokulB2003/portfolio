@@ -11,7 +11,7 @@ var typeData = new Typed(".role", {
     });
 
     document.querySelector(".btn-project").addEventListener("click", function () {
-      window.open("https://github.com/gokulbhor", "_blank");
+      window.open("https://github.com/GokulB2003", "_blank");
     });
     
  
