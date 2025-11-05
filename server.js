@@ -2,11 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
+const path = require('path');
 
 dotenv.config();
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -15,7 +16,7 @@ app.use(express.static('public'));
 
 // Serve the main index.html for GET /
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/index.html');
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // Handle form submission
@@ -33,7 +34,7 @@ app.post('/submit-form', (req, res) => {
     service: 'gmail',
     auth: {
       user: process.env.EMAIL_USER,
-      pass: 'efksswgacmdqrjvv', // Use the generated app password here
+      pass: process.env.EMAIL_PASS,
     },
   });
 
@@ -56,5 +57,5 @@ app.post('/submit-form', (req, res) => {
          
 // Start server
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
